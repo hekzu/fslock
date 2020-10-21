@@ -4,7 +4,7 @@ from core.lock import FileLock
 
 class FirstCase(TestCase):
     def test_first(self):
-        lock = FileLock("a.txt")
+        lock = FileLock("test.txt")
         lock.acquire()
         print(lock.is_locked)
         input("Press Enter to continue...")

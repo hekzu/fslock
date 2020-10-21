@@ -37,6 +37,7 @@ class FileLock:
         self.timeout: float = timeout
         self.delay: float = delay
         self.f = open(os.path.join(directory, file_name), "r+")
+        print(os.path.join(directory, file_name))
         self.fd: int = 0
         if (delay is None) and (timeout is not None):
             raise ValueError("If timeout is set, a delay must be set as well.")
@@ -54,7 +55,7 @@ class FileLock:
                 self.is_locked = True
                 pl.lock(self.f, pl.LOCK_EX)
                 break
-            except OSError as e:
+            except (OSError, FileExistsError) as e:
                 if e.errno != errno.EEXIST:
                     raise
                 if self.timeout is None:
